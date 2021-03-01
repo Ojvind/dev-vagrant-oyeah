@@ -22,8 +22,11 @@ systemctl status mongod
 # Ensure that MongoDB will start following a system reboot
 systemctl enable mongod
 
-# 
-# mongod --bind_ip_all
+# Allow remote access to mongodb
+sed -i "s,\\(^[[:blank:]]*bindIp:\\) .*,\\1 0.0.0.0," /etc/mongod.conf
+
+# Restart MongoDB
+systemctl restart mongod
 
 # Enable remote access
 # https://github.com/UnderGreen/ansible-role-mongodb/issues/109
